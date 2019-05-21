@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">لغت نامه من</string>
+    <string name="search">جستجو</string>
+    <string name="quiz">آزمون</string>
+    <string name="add">افزودن لغت</string>
+    <string name="word">لغت</string>
+    <string name="definition">معنی</string>
+    <string name="no">بازگشت</string>
+    <string name="clear">پاک کردن</string>
+    <string name="yes">افزودن</string>
+    <string name="edit">ویرایش</string>
+    <string name="delete">حذف</string>
+</resources>

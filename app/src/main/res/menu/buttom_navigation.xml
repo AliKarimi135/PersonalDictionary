@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/add"
+        android:icon="@drawable/ic_add"
+        android:title="@string/add"/>
+    <item android:id="@+id/quiz"
+        android:icon="@drawable/ic_quiz"
+        android:title="@string/quiz"/>
+    <item android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"/>
+</menu>
