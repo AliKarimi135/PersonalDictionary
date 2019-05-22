@@ -11,4 +11,5 @@
     <string name="edit">ویرایش</string>
     <string name="delete">حذف</string>
     <string name="search_hint">کلمه مورد نظر خود را بنویسید</string>
+    <string name="score">score</string>
 </resources>

@@ -139,7 +139,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         transaction.hide(wordFragment);
                         transaction.hide(searchFragment);
                         transaction.show(quizFragment);
-                            break;
+                        quizFragment.loadDataFromDb();
+                        //quizFragment.initQuiz();
+                        break;
             case R.id.add:
                         transaction.hide(searchFragment);
                         transaction.hide(quizFragment);
@@ -162,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if(item.getItemId()==android.R.id.home) {
             recyclerView.setVisibility(View.VISIBLE);
             frameLayout.setVisibility(View.GONE);
+            loadDataFromDb();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -172,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
      * status add or update or delete data to change ui data
      */
     public void updateRecycler(int status,Dictionary input){
-        if(status==1){
+        /*if(status==1){
             dictionary.add(0,input);
         }else if(status==2){
             dictionary.remove(input.getId());
@@ -180,10 +183,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             dictionary.remove(status);
             dictionary.add(status,input);
         }
-        dictionaryAdapter.notifyDataSetChanged();
+        dictionaryAdapter.notifyDataSetChanged();*/
     }
-    public void chengeKeybord(){
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
-    }
+
 }

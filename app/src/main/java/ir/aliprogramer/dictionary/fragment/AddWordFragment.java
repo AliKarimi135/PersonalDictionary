@@ -56,14 +56,14 @@ public class AddWordFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MyAppLanguge.setLocaleEn(getContext());
-                ((MainActivity)getContext()).chengeKeybord();
+
             }
         });
         definition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyAppLanguge.setLocaleFa(getActivity());
-                ((MainActivity)getContext()).chengeKeybord();
+
                 Log.d("testLan","languge");
             }
         });*/
