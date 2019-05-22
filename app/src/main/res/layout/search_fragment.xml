@@ -17,15 +17,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/search_word"
             android:focusedByDefault="true"
-            android:layout_margin="5dp">
-            <requestFocus/>
-        </AutoCompleteTextView>
+            android:layout_margin="5dp"
+            android:completionThreshold="1"
+            android:hint="@string/search_hint"/>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:visibility="visible"
+    android:visibility="gone"
+    android:layout_marginTop="20dp"
     android:id="@+id/result_search">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

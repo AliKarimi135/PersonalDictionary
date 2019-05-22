@@ -1,5 +1,6 @@
 package ir.aliprogramer.dictionary.fragment;
 
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,12 +9,16 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 import ir.aliprogramer.dictionary.MainActivity;
+import ir.aliprogramer.dictionary.MyAppLanguge;
 import ir.aliprogramer.dictionary.R;
 import ir.aliprogramer.dictionary.database.AppDatabase;
 import ir.aliprogramer.dictionary.database.Dictionary;
@@ -46,6 +51,22 @@ public class AddWordFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+       /* word.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyAppLanguge.setLocaleEn(getContext());
+                ((MainActivity)getContext()).chengeKeybord();
+            }
+        });
+        definition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyAppLanguge.setLocaleFa(getActivity());
+                ((MainActivity)getContext()).chengeKeybord();
+                Log.d("testLan","languge");
+            }
+        });*/
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +75,7 @@ public class AddWordFragment extends Fragment {
                 defintionSt=definition.getText().toString().trim();
                 if(!checkInput(wordSt,defintionSt))
                     return;
-                input=new Dictionary(wordSt,defintionSt);
+                input=new Dictionary(wordSt.toLowerCase(),defintionSt);
                 saveWord();
 
             }
@@ -77,7 +98,7 @@ public class AddWordFragment extends Fragment {
 
             @Override
             protected Integer doInBackground(Void... voids) {
-                resultSearch= AppDatabase.getInstance(getContext()).dao().findWord(input.getWord());
+                resultSearch= AppDatabase.getInstance(getContext()).dao().findWord(input.getWord().toLowerCase());
                 if(resultSearch==null) {
                     AppDatabase.getInstance(getContext()).dao().insertWord(input);
                     return 1;

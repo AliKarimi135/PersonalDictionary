@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import java.util.List;
 import ir.aliprogramer.dictionary.database.AppDatabase;
 import ir.aliprogramer.dictionary.database.Dictionary;
 import ir.aliprogramer.dictionary.fragment.AddWordFragment;
+import ir.aliprogramer.dictionary.fragment.QuizFragment;
 import ir.aliprogramer.dictionary.fragment.SearchFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     BottomNavigationView bottomNavigationView;
     FragmentTransaction transaction;
     SearchFragment searchFragment;
+    QuizFragment quizFragment;
     AddWordFragment wordFragment;
     List<Dictionary>  dictionary;
     DictionaryAdapter dictionaryAdapter;
@@ -78,10 +81,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         transaction.addToBackStack("SearchFragment");
         transaction.hide(searchFragment);
 
-       /* SearchFragment sf=new SearchFragment();
-        transaction.add(R.id.frame_layout,sf,"SearchFragment2");
-        transaction.addToBackStack("SearchFragment2");
-        transaction.hide(sf);*/
+        quizFragment=new QuizFragment();
+        transaction.add(R.id.frame_layout,quizFragment,"QuizFragment");
+        transaction.addToBackStack("QuizFragment");
+        transaction.hide(quizFragment);
 
         transaction.commit();
 
@@ -127,14 +130,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (menuItem.getItemId()){
             case R.id.search:
                             transaction.hide(wordFragment);
+                            transaction.hide(quizFragment);
                             transaction.show(searchFragment);
+                            searchFragment.getData();
+                            searchFragment.clearInput();
                              break;
             case R.id.quiz:
                         transaction.hide(wordFragment);
-                        transaction.show(searchFragment);
+                        transaction.hide(searchFragment);
+                        transaction.show(quizFragment);
                             break;
             case R.id.add:
                         transaction.hide(searchFragment);
+                        transaction.hide(quizFragment);
                         transaction.show(wordFragment);
                         break;
         }
@@ -166,11 +174,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void updateRecycler(int status,Dictionary input){
         if(status==1){
             dictionary.add(0,input);
-            dictionaryAdapter.notifyDataSetChanged();
         }else if(status==2){
-
+            dictionary.remove(input.getId());
         }else {
-
+            dictionary.remove(status);
+            dictionary.add(status,input);
         }
+        dictionaryAdapter.notifyDataSetChanged();
+    }
+    public void chengeKeybord(){
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_main);
     }
 }
