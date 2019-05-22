@@ -2,6 +2,7 @@ package ir.aliprogramer.dictionary;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
     }
-
+    public void hideSoftKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     private void loadDataFromDb() {
          class getData extends AsyncTask<Void,Void,Integer> {
@@ -129,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         recyclerView.setVisibility(View.GONE);
         switch (menuItem.getItemId()){
             case R.id.search:
+                            title.setText("جست جو و ویرایش و حذف کلمه");
                             transaction.hide(wordFragment);
                             transaction.hide(quizFragment);
                             transaction.show(searchFragment);
@@ -137,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             quizFragment.stopTImerTask();
                              break;
             case R.id.quiz:
+                        title.setText("آزمون");
                         transaction.hide(wordFragment);
                         transaction.hide(searchFragment);
                         transaction.show(quizFragment);
@@ -145,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         //quizFragment.initQuiz();
                         break;
             case R.id.add:
+                        title.setText("افزودن کلمه");
                         transaction.hide(searchFragment);
                         transaction.hide(quizFragment);
                         transaction.show(wordFragment);
@@ -168,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             recyclerView.setVisibility(View.VISIBLE);
             frameLayout.setVisibility(View.GONE);
             loadDataFromDb();
+            title.setText(getString(R.string.app_name));
         }
         return super.onOptionsItemSelected(item);
     }

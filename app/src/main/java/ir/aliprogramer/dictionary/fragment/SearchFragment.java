@@ -71,6 +71,7 @@ public class SearchFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
                 updateInput= (Dictionary) adapterView.getItemAtPosition(pos);
                 clearInput();
+                ((MainActivity)getContext()).hideSoftKeyboard(search);
                 resultSearchUi.setVisibility(View.VISIBLE);
                 word.setText(updateInput.getWord());
                 definition.setText(updateInput.getDefinition());

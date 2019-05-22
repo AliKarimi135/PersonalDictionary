@@ -39,7 +39,7 @@ public class searchAdapter extends ArrayAdapter<Dictionary> {
         if (dicti != null) {
             TextView lblName = (TextView) view.findViewById(R.id.lbl_name);
             if (lblName != null)
-                lblName.setText(dicti.getWord() +"\t\t\t\t"+ dicti.getDefinition());
+                lblName.setText(dicti.getWord() +"\t\t\t\t"+ dicti.getDefinition()+"\t");
 
         }
         return view;
