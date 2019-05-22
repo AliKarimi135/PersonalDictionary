@@ -134,18 +134,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                             transaction.show(searchFragment);
                             searchFragment.getData();
                             searchFragment.clearInput();
+                            quizFragment.stopTImerTask();
                              break;
             case R.id.quiz:
                         transaction.hide(wordFragment);
                         transaction.hide(searchFragment);
                         transaction.show(quizFragment);
                         quizFragment.loadDataFromDb();
+                        quizFragment.doTimerTask();
                         //quizFragment.initQuiz();
                         break;
             case R.id.add:
                         transaction.hide(searchFragment);
                         transaction.hide(quizFragment);
                         transaction.show(wordFragment);
+                        quizFragment.stopTImerTask();
                         break;
         }
         transaction.commit();

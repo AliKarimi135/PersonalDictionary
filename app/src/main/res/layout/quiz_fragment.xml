@@ -91,13 +91,36 @@
                 android:text="answer4"/>
         </android.support.v7.widget.CardView>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/linear_layout2"
+        android:id="@+id/linear_layout3"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remain_time"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginRight="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timer"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="0"/>
+    </LinearLayout>
   <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_below="@id/linear_layout2"
-      android:layout_marginTop="20dp"
-      android:layout_centerHorizontal="true">
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+            android:layout_below="@id/linear_layout3"
+          android:layout_marginTop="20dp"
+          android:layout_centerHorizontal="true">
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

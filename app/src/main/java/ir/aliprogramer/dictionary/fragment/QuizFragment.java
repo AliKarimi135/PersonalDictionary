@@ -2,6 +2,7 @@ package ir.aliprogramer.dictionary.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import ir.aliprogramer.dictionary.DictionaryAdapter;
 import ir.aliprogramer.dictionary.R;
@@ -23,11 +26,16 @@ import ir.aliprogramer.dictionary.database.Dictionary;
 
 public class QuizFragment extends Fragment implements View.OnClickListener{
     CardView card1,card2,card3,card4;
-    TextView question,answer1,answer2,answer3,answer4,scoreView;
+    TextView question,answer1,answer2,answer3,answer4,scoreView,timerView;
     List<Dictionary> dictionary;
     boolean startQuiz;
     Random random;
-    int guestionNumber,corectCard,score=0;
+    int guestionNumber,corectCard,score=0,nCounter=0;
+
+    TimerTask mTimerTask;
+    final Handler handler = new Handler();
+    Timer timer = new Timer();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +50,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
         answer3=view.findViewById(R.id.answer3);
         answer4=view.findViewById(R.id.answer4);
         scoreView=view.findViewById(R.id.score);
+        timerView=view.findViewById(R.id.timer);
         card1.setOnClickListener(this);
         card2.setOnClickListener(this);
         card3.setOnClickListener(this);
@@ -60,7 +69,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
        // loadDataFromDb();
         random=new Random();
-
+        //doTimerTask();
 
     }
     public void loadDataFromDb() {
@@ -101,7 +110,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.card1:
                 if(corectCard == 1)
-                    score +=10;
+                    score += 10;
                 break;
             case R.id.card2:
                 if(corectCard == 2)
@@ -116,12 +125,15 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                     score += 10;
                 break;
         }
+        nCounter = 0;
+        timerView.setText("0");
         scoreView.setText(score+"");
         initQuiz();
     }
     public void initQuiz() {
         if(!startQuiz)
             return;
+
         guestionNumber=random.nextInt(dictionary.size());
         corectCard=random.nextInt(4)+1;
         question.setText(dictionary.get(guestionNumber).getDefinition());
@@ -148,5 +160,35 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                     answer1.setText(dictionary.get(random.nextInt(dictionary.size())).getWord());
                     break;
         }
+    }
+
+    public void doTimerTask(){
+
+        mTimerTask = new TimerTask() {
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        // update TextView
+                        timerView.setText(" " + nCounter);
+                        nCounter++;
+                        if(nCounter==8) {
+                            initQuiz();
+                            nCounter=0;
+                        }
+                    }
+                });
+            }};
+
+        // public void schedule (TimerTask task, long delay, long period)
+        timer.schedule(mTimerTask, 1000, 1000);  //
+
+    }
+
+    public void stopTImerTask(){
+        if(mTimerTask!=null){
+            mTimerTask.cancel();
+            nCounter=0;
+        }
+
     }
 }
